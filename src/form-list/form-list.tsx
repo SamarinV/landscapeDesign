@@ -45,7 +45,7 @@ const MuiTelInputCustom = styled(MuiTelInput)`
 
 const FormList = () => {
 	const [isLoading, setIsLoading] = useState(false)
-	const [isOpenModal, setIsOpenModal] = useState(true)
+	const [isOpenModal, setIsOpenModal] = useState(false)
 	const {
 		control,
 		handleSubmit,

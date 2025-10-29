@@ -181,24 +181,29 @@ const FormList = () => {
 					{errors.serviceType && <p style={{ color: 'red' }}>{errors.serviceType.message}</p>}
 				</FormControl>
 
-				{/* <FormControl component="fieldset" margin="normal">
+				<FormControl component="fieldset" margin="normal">
 					<FormLabel component="legend">Проблемные зоны</FormLabel>
 					<FormGroup>
-						{['area1', 'area2', 'area3'].map((area) => (
+						{['problemArea1', 'problemArea2', 'problemArea3'].map((name) => (
 							<Controller
-								key={area}
-								name={area as keyof FormData}
+								key={name}
+								name={name as keyof FormData}
 								control={control}
 								render={({ field }) => (
 									<FormControlLabel
-										control={<Checkbox checked={field.value} onChange={(e) => field.onChange(e.target.checked)} />}
-										label={area}
+										control={
+											<Checkbox
+												checked={!!field.value}
+												onChange={(e) => field.onChange(e.target.checked)}
+											/>
+										}
+										label={name}
 									/>
 								)}
 							/>
 						))}
 					</FormGroup>
-				</FormControl> */}
+				</FormControl>
 
 				<Button disabled={isSubmitting} type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
 					Отправить заявку

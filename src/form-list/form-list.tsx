@@ -12,43 +12,56 @@ import {
 } from '@mui/material'
 import React, { useState } from 'react'
 import { sendMessage } from '../../api/telegram'
+import { MuiTelInput, matchIsValidTel } from 'mui-tel-input'
+import { useForm, Controller, type SubmitHandler } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 import type { FormData } from '../types/types'
-import { MuiTelInput } from 'mui-tel-input'
+
+const schema: yup.ObjectSchema<FormData> = yup.object({
+	firstName: yup.string().required('Введите имя'),
+	lastName: yup.string().required('Введите фамилию'),
+	email: yup.string().email('Некорректный email').required('Введите email'),
+	phone: yup
+		.string()
+		.test('is-valid-phone', 'Некорректный телефон', (v) => (v ? matchIsValidTel(v) : false))
+		.required('Введите телефон'),
+	serviceType: yup.string().required('Выберите тип услуги'),
+	address: yup.string(),
+	peakSeason: yup.string(),
+	problemArea1: yup.boolean(),
+	problemArea2: yup.boolean(),
+	problemArea3: yup.boolean(),
+})
 
 const FormList = () => {
 	const [isLoading, setIsLoading] = useState(false)
-	const [form, setForm] = useState<FormData>({
-		firstName: '',
-		middleName: '',
-		lastName: '',
-		email: '',
-		country: '',
-		phone: '',
-		address: '',
-		serviceType: '',
-		family: '',
-		children: '',
-		allergies: '',
-		livingTime: '',
-		peakSeason: '',
-		problemArea1: false,
-		problemArea2: false,
-		problemArea3: false,
+	const {
+		control,
+		handleSubmit,
+		formState: { errors, isSubmitting },
+	} = useForm<FormData>({
+		defaultValues: {
+			firstName: '',
+			lastName: '',
+			email: '',
+			phone: '',
+			address: '',
+			serviceType: '',
+			peakSeason: '',
+			problemArea1: false,
+			problemArea2: false,
+			problemArea3: false,
+		},
+
+		resolver: yupResolver(schema),
 	})
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-		const { name, value } = e.target
-		setForm((prev) => ({ ...prev, [name]: value }))
-	}
-	const handlePhoneNumberChange = (value: any) => {
-		console.log(value)
-	}
-
-	const handleSubmit = async (values: FormData) => {
-		console.log('values: ', values)
+	const onSubmit = async (data: FormData) => {
+		console.log('values: ', data)
 		try {
 			setIsLoading(true)
-			await sendMessage(form)
+			await sendMessage(data)
 		} catch (error) {
 			console.log('error: ', error)
 		} finally {
@@ -68,152 +81,134 @@ const FormList = () => {
 				gap: 1,
 			}}
 		>
-			<TextField
-				fullWidth
-				label="Имя"
-				name="firstName"
-				value={form.firstName}
-				onChange={handleInputChange}
-				margin="normal"
-				variant="standard"
-			/>
-			<TextField
-				fullWidth
-				label="Отчество"
-				name="middleName"
-				value={form.middleName}
-				onChange={handleInputChange}
-				margin="normal"
-				variant="standard"
-			/>
-			<TextField
-				fullWidth
-				label="Фамилия"
-				name="lastName"
-				value={form.lastName}
-				onChange={handleInputChange}
-				margin="normal"
-				variant="standard"
-			/>
-			<TextField
-				fullWidth
-				label="Email"
-				name="email"
-				value={form.email}
-				onChange={handleInputChange}
-				margin="normal"
-				variant="standard"
-			/>
+			<form onSubmit={handleSubmit(onSubmit)}>
+				<Controller
+					name="firstName"
+					control={control}
+					render={({ field }) => (
+						<TextField
+							{...field}
+							fullWidth
+							label="Имя"
+							variant="standard"
+							error={!!errors.firstName}
+							helperText={errors.firstName?.message}
+							margin="normal"
+						/>
+					)}
+				/>
+				<Controller
+					name="lastName"
+					control={control}
+					render={({ field }) => (
+						<TextField
+							{...field}
+							fullWidth
+							label="Фамилия"
+							variant="standard"
+							error={!!errors.lastName}
+							helperText={errors.lastName?.message}
+							margin="normal"
+						/>
+					)}
+				/>
+				<Controller
+					name="email"
+					control={control}
+					render={({ field }) => (
+						<TextField
+							{...field}
+							fullWidth
+							label="Email"
+							variant="standard"
+							error={!!errors.email}
+							helperText={errors.email?.message}
+							margin="normal"
+						/>
+					)}
+				/>
 
-			<TextField
-				fullWidth
-				label="Номер телефона"
-				name="phone"
-				value={form.phone}
-				onChange={handleInputChange}
-				margin="normal"
-				variant="standard"
-			/>
-			<MuiTelInput value={form.phone} onChange={handlePhoneNumberChange} />
-			<TextField
-				fullWidth
-				label="Адрес объекта"
-				name="address"
-				value={form.address}
-				onChange={handleInputChange}
-				margin="normal"
-				variant="standard"
-			/>
+				<Controller
+					name="phone"
+					control={control}
+					render={({ field }) => (
+						<MuiTelInput
+							{...field}
+							fullWidth
+							variant="standard"
+							defaultCountry="RU"
+							placeholder="000-000-00-00"
+							autoComplete="true"
+							autoCorrect="true"
+							forceCallingCode
+							focusOnSelectCountry
+							preferredCountries={['RU']}
+							onChange={(value) => field.onChange(value)}
+							error={!!errors.phone}
+							helperText={errors.phone?.message}
+						/>
+					)}
+				/>
 
-			<FormControl component="fieldset" margin="normal">
-				<FormLabel sx={{ textAlign: 'left' }} component="legend">
-					Тип услуги
-				</FormLabel>
-				<RadioGroup name="serviceType" value={form.serviceType} onChange={handleInputChange}>
-					<FormControlLabel value="ландшафт" control={<Radio />} label="Ландшафт" />
-					<FormControlLabel value="сад" control={<Radio />} label="Сад" />
-				</RadioGroup>
-			</FormControl>
+				<Controller
+					name="address"
+					control={control}
+					render={({ field }) => (
+						<TextField
+							{...field}
+							fullWidth
+							label="Адрес объекта"
+							variant="standard"
+							error={!!errors.address}
+							helperText={errors.address?.message}
+							margin="normal"
+						/>
+					)}
+				/>
 
-			<TextField
-				fullWidth
-				label="Состав семьи"
-				name="family"
-				value={form.family}
-				onChange={handleInputChange}
-				margin="normal"
-				variant="standard"
-			/>
-			<TextField
-				fullWidth
-				label="Дети (пол, возраст)"
-				name="children"
-				value={form.children}
-				onChange={handleInputChange}
-				margin="normal"
-				variant="standard"
-			/>
-			<TextField
-				fullWidth
-				label="Есть ли аллергия на определенные виды растений?"
-				name="allergies"
-				value={form.allergies}
-				onChange={handleInputChange}
-				margin="normal"
-				variant="standard"
-			/>
-
-			<FormControl component="fieldset" margin="normal">
-				<FormLabel component="legend">Время проживания</FormLabel>
-				<RadioGroup name="livingTime" value={form.livingTime} onChange={handleInputChange}>
-					<FormControlLabel value="постоянно" control={<Radio />} label="Постоянно" />
-					<FormControlLabel value="частично" control={<Radio />} label="Частично" />
-				</RadioGroup>
-			</FormControl>
-
-			<TextField
-				fullWidth
-				label="В какое время года садом пользуются наиболее интенсивно?"
-				name="peakSeason"
-				value={form.peakSeason}
-				onChange={handleInputChange}
-				margin="normal"
-				variant="standard"
-			/>
-
-			<FormControl component="fieldset" margin="normal">
-				<FormLabel component="legend">Существующие проблемные зоны участка</FormLabel>
-				<FormGroup>
-					<FormControlLabel
-						control={<Checkbox checked={form.problemArea1} onChange={handleInputChange} name="area1" />}
-						label="Застой воды"
+				<FormControl>
+					<FormLabel>Тип услуги</FormLabel>
+					<Controller
+						name="serviceType"
+						control={control}
+						render={({ field }) => (
+							<RadioGroup {...field}>
+								<FormControlLabel value="ландшафт" control={<Radio />} label="Ландшафт" />
+								<FormControlLabel value="сад" control={<Radio />} label="Сад" />
+							</RadioGroup>
+						)}
 					/>
-					<FormControlLabel
-						control={<Checkbox checked={form.problemArea2} onChange={handleInputChange} name="area2" />}
-						label="Ветренность"
-					/>
-					<FormControlLabel
-						control={<Checkbox checked={form.problemArea3} onChange={handleInputChange} name="area3" />}
-						label="Объекты, требующие маскировки"
-					/>
-				</FormGroup>
-			</FormControl>
+					{errors.serviceType && <p style={{ color: 'red' }}>{errors.serviceType.message}</p>}
+				</FormControl>
 
-			<Button
-				variant="contained"
-				color="primary"
-				fullWidth
-				sx={{ mt: 2 }}
-				type="button"
-				onClick={() => handleSubmit(form)}
-			>
-				Отправить заявку
-			</Button>
-			{isLoading && <p>Загрузка</p>}
-			<h6>
-				«Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c политикой
-				конфиденциальности»
-			</h6>
+				{/* <FormControl component="fieldset" margin="normal">
+					<FormLabel component="legend">Проблемные зоны</FormLabel>
+					<FormGroup>
+						{['area1', 'area2', 'area3'].map((area) => (
+							<Controller
+								key={area}
+								name={area as keyof FormData}
+								control={control}
+								render={({ field }) => (
+									<FormControlLabel
+										control={<Checkbox checked={field.value} onChange={(e) => field.onChange(e.target.checked)} />}
+										label={area}
+									/>
+								)}
+							/>
+						))}
+					</FormGroup>
+				</FormControl> */}
+
+				<Button disabled={isSubmitting} type="submit" variant="contained" fullWidth sx={{ mt: 2 }}>
+					Отправить заявку
+				</Button>
+				{isLoading && <p>Загрузка</p>}
+				<h6>
+					«Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c политикой
+					конфиденциальности»
+				</h6>
+			</form>
 		</Box>
 	)
 }

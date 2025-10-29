@@ -1,0 +1,32 @@
+.header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.title {
+	font-weight: 700;
+	font-size: 2rem;
+}
+
+.bottomBlock {
+	max-width: 560px;
+	.subtitle {
+		margin-top: 1.5rem;
+		font-weight: 500;
+		font-size: 1.25rem;
+		max-width: 560px;
+	}
+	.description {
+		margin-top: 1.1rem;
+		font-weight: 400;
+		font-size: 1.25rem;
+		max-width: 560px;
+	}
+}
+
+@media (min-width: 680px) {
+	.header {
+		margin: 0 2rem;
+	}
+}

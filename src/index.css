@@ -1,0 +1,39 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	font-family: 'Roboto', Arial, sans-serif;
+	line-height: 1.5;
+	font-weight: 400;
+	font-size: 16px;
+	color-scheme: light dark;
+	color: rgba(13, 13, 13, 0.87);
+	background-color: #e5e5e5;
+	max-width: 1280px;
+	margin: 0 auto;
+	padding: 1.5rem 1rem;
+	text-align: center;
+}
+
+body {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	max-width: 960px;
+	min-height: 100vh;
+}
+
+input:-webkit-autofill {
+	-webkit-box-shadow: 0 0 0px 1000px #e5e5e5 inset; /* Белый фон */
+	-webkit-text-fill-color: rgba(13, 13, 13, 0.87); /* Цвет текста */
+	transition: background-color 5000s ease-in-out 0s; /* Иногда помогает */
+}
+
+@media (min-width: 600px) {
+	:root {
+		font-size: 20px;
+	}
+}

@@ -1,3 +1,4 @@
+import { yupResolver } from '@hookform/resolvers/yup'
 import {
 	Box,
 	Button,
@@ -10,12 +11,11 @@ import {
 	RadioGroup,
 	TextField,
 } from '@mui/material'
-import React, { useState } from 'react'
-import { sendMessage } from '../../api/telegram'
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input'
-import { useForm, Controller, type SubmitHandler } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
+import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
 import * as yup from 'yup'
+import { sendMessage } from '../../api/telegram'
 import type { FormData } from '../types/types'
 
 const schema: yup.ObjectSchema<FormData> = yup.object({

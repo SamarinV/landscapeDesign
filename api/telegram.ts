@@ -5,16 +5,11 @@ const chatId = import.meta.env.VITE_CHAT_ID
 
 const buildMessage = (form: FormData) => {
 	return `
-Имя: ${form.firstName} ${form.middleName} ${form.lastName}
+Имя: ${form.firstName} ${form.lastName}
 Email: ${form.email}
-Страна: ${form.country}
 Телефон: ${form.phone}
 Адрес: ${form.address}
 Услуга: ${form.serviceType}
-Семья: ${form.family}
-Дети: ${form.children}
-Аллергии: ${form.allergies}
-Время проживания: ${form.livingTime}
 Пик сезона: ${form.peakSeason}
 Проблемные зоны 1: ${form.problemArea1}
 Проблемные зоны 2: ${form.problemArea2}
@@ -27,8 +22,8 @@ export const sendMessage = async (form: FormData): Promise<void> => {
 	const url = `${baseUrl}sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`
 	const response = await fetch(url)
 
-	if(!response.ok){
+	if (!response.ok) {
 		const error = await response.json()
-		await Promise.reject(error.description || "Что-то пошло не")
+		await Promise.reject(error.description || 'Что-то пошло не')
 	}
 }

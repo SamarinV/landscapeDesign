@@ -1,6 +1,24 @@
+@import '../index.scss';
+
+.wrapper {
+	background: $block-color-light;
+	border-radius: 20px;
+	margin-top: 6rem;
+}
 .form {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	gap: 10px;
+	max-width: 960px;
+}
+
+.topBlock {
+	max-width: 560px;
+	.title {
+		margin-top: 1.5rem;
+		font-weight: 500;
+		font-size: 1.25rem;
+		max-width: 560px;
+	}
 }

@@ -12,14 +12,14 @@ import {
 	styled,
 	TextField,
 } from '@mui/material'
-import { MuiTelInput, matchIsValidTel } from 'mui-tel-input'
+import { matchIsValidTel, MuiTelInput } from 'mui-tel-input'
 import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { sendMessage } from '../../api/telegram'
+import { CustomModal } from '../modal/modal'
 import type { FormData } from '../types/types'
 import s from './form-list.module.scss'
-import { CustomModal } from '../modal/modal'
 
 const schema: yup.ObjectSchema<FormData> = yup.object({
 	firstName: yup.string().required('Введите имя'),
@@ -83,14 +83,17 @@ const FormList = () => {
 	}
 
 	return (
-		<>
+		<div className={s.wrapper}>
 			<Box
 				sx={{
 					maxWidth: 600,
 					mx: 'auto',
-					p: 2,
+					p: 3,
 				}}
 			>
+				<div className={s.topBlock}>
+					<h3 className={s.title}>Оставте заявку и мы с вами свяжемся</h3>
+				</div>
 				<form className={s.form} onSubmit={handleSubmit(onSubmit)}>
 					<Controller
 						name="firstName"
@@ -98,6 +101,7 @@ const FormList = () => {
 						render={({ field }) => (
 							<TextField
 								{...field}
+								required
 								fullWidth
 								label="Имя"
 								variant="standard"
@@ -113,6 +117,7 @@ const FormList = () => {
 						render={({ field }) => (
 							<TextField
 								{...field}
+								required
 								fullWidth
 								label="Фамилия"
 								variant="standard"
@@ -128,6 +133,7 @@ const FormList = () => {
 						render={({ field }) => (
 							<TextField
 								{...field}
+								required
 								fullWidth
 								label="Email"
 								variant="standard"
@@ -144,6 +150,8 @@ const FormList = () => {
 						render={({ field }) => (
 							<MuiTelInputCustom
 								{...field}
+								label="Номер телефона"
+								required
 								fullWidth
 								variant="standard"
 								defaultCountry="RU"
@@ -156,6 +164,7 @@ const FormList = () => {
 								onChange={(value) => field.onChange(value)}
 								error={!!errors.phone}
 								helperText={errors.phone?.message}
+								sx={{ marginTop: '1rem' }}
 							/>
 						)}
 					/>
@@ -167,6 +176,7 @@ const FormList = () => {
 							<TextField
 								{...field}
 								fullWidth
+								required
 								label="Адрес объекта"
 								variant="standard"
 								error={!!errors.address}
@@ -176,7 +186,7 @@ const FormList = () => {
 						)}
 					/>
 
-					<FormControl sx={{ marginTop: '15px' }}>
+					<FormControl required sx={{ marginTop: '15px' }}>
 						<FormLabel sx={{ textAlign: 'left' }}>Тип услуги</FormLabel>
 						<Controller
 							name="serviceType"
@@ -196,7 +206,7 @@ const FormList = () => {
 							Проблемные зоны
 						</FormLabel>
 						<FormGroup>
-							{['problemArea1', 'problemArea2', 'problemArea3'].map((name) => (
+							{['Застой воды', 'Ветренность', 'Объекты требующие маскировки'].map((name) => (
 								<Controller
 									key={name}
 									name={name as keyof FormData}
@@ -230,7 +240,7 @@ const FormList = () => {
 			</Box>
 
 			<CustomModal isOpen={isOpenModal} setIsOpen={setIsOpenModal} />
-		</>
+		</div>
 	)
 }
 

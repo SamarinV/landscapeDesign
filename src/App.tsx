@@ -1,15 +1,14 @@
-import '@fontsource/roboto/400.css'
-import '@fontsource/roboto/500.css'
-import '@fontsource/roboto/700.css'
+import Footer from './footer/footer'
 import Header from './header/header'
-import Main from './form-list/form-list'
+import Main from './main/main'
 
 function App() {
 	return (
-		<>
+		<div>
 			<Header />
 			<Main />
-		</>
+			<Footer />
+		</div>
 	)
 }
 

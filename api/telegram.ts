@@ -47,14 +47,34 @@ Email: ${form.email}
 `
 }
 
+export type SendMessageError = {
+	type: 'api' | 'network' | 'unknown'
+	message: string
+}
+
 export const sendMessage = async (form: FormDataType): Promise<void> => {
 	const message = buildMessage(form)
-	alert('jgf')
 	const url = `${baseUrl}sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`
-	const response = await fetch(url)
 
-	if (!response.ok) {
-		const error = await response.json()
-		await Promise.reject(error.description || 'Что-то пошло не')
+	try {
+		const response = await fetch(url)
+
+		if (!response.ok) {
+			let errorMsg = 'Что-то пошло не так'
+			try {
+				const errorData = await response.json()
+				errorMsg = errorData.description || errorMsg
+			} catch {}
+			throw { type: 'api', message: errorMsg } as SendMessageError
+		}
+	} catch (err: unknown) {
+		if (err instanceof TypeError) {
+			throw { type: 'network', message: err.message } as SendMessageError
+		} else if ((err as SendMessageError).message) {
+			throw err
+		} else {
+			throw { type: 'unknown', message: 'Произошла неизвестная ошибка' } as SendMessageError
+		}
 	}
 }
+

@@ -2,7 +2,7 @@ import { Box, Button, styled } from '@mui/material'
 import { MuiTelInput } from 'mui-tel-input'
 import { useRef, useState } from 'react'
 import { Controller, useForm, type FieldErrors } from 'react-hook-form'
-import { sendMessage } from '../../api/telegram'
+import { sendMessage, type SendMessageError } from '../../api/telegram'
 import { CustomInput } from '../components/custom-input'
 import { CustomRadio } from '../components/custom-radio'
 import { CustomSelect } from '../components/custom-select'
@@ -30,6 +30,7 @@ import s from './form-list.module.scss'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { formSchema, type FormDataType } from '../validation/form-schema'
+import { toast } from 'react-toastify'
 
 const MuiTelInputCustom = styled(MuiTelInput)`
 	& input {
@@ -39,7 +40,6 @@ const MuiTelInputCustom = styled(MuiTelInput)`
 
 const FormList = () => {
 	const [isLoading, setIsLoading] = useState(false)
-	const [isOpenModal, setIsOpenModal] = useState(false)
 	const phoneRef = useRef<HTMLInputElement | null>(null)
 	const {
 		control,
@@ -56,22 +56,34 @@ const FormList = () => {
 		try {
 			setIsLoading(true)
 			await sendMessage(data)
-			setIsOpenModal(true)
-		} catch (error) {
-			console.log('error: ', error)
+			toast.success('Форма успешно отправлена!')
+			reset()
+		} catch (err: unknown) {
+			const e = err as SendMessageError
+			switch (e.type) {
+				case 'api':
+					toast.error(`Ошибка API: ${e.message}`)
+					break
+				case 'network':
+					toast.error(`Сетевая ошибка, проверьте подключение: ${e.message}`)
+					break
+				case 'unknown':
+				default:
+					toast.error(e.message)
+					break
+			}
 		} finally {
 			setIsLoading(false)
-			reset()
 		}
 	}
 
 	const onError = (errors: FieldErrors<FormDataType>) => {
 		const firstField = Object.keys(errors)[0] as keyof FormDataType
-		  if (firstField === 'phone' && phoneRef.current) {
-				phoneRef.current.focus()
-			} else {
-				setFocus(firstField)
-			}
+		if (firstField === 'phone' && phoneRef.current) {
+			phoneRef.current.focus()
+		} else {
+			setFocus(firstField)
+		}
 	}
 
 	return (
@@ -219,7 +231,7 @@ const FormList = () => {
 					</h6>
 				</form>
 			</Box>
-			<CustomModal isOpen={isOpenModal} setIsOpen={setIsOpenModal} />
+			{/* <CustomModal isOpen={isOpenModal} setIsOpen={setIsOpenModal} /> */}
 		</div>
 	)
 }

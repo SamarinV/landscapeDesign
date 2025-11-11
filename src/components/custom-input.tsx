@@ -1,17 +1,16 @@
-import { TextField } from "@mui/material";
-import { Controller } from "react-hook-form";
-import type { FormData } from "../types/types";
+import { TextField } from '@mui/material'
+import { Controller } from 'react-hook-form'
+import type { FormDataType } from '../validation/form-schema'
 
 type Props = {
-	name: keyof FormData,
-	label: string,
-	control: any,
-	errors?: any,
+	name: keyof FormDataType
+	label: string
+	control: any
+	errors?: any
 	required?: boolean
 }
 
-export const CustomInput = ({name, label, control, errors, required}: Props) => {
-
+export const CustomInput = ({ name, label, control, errors, required }: Props) => {
 	return (
 		<Controller
 			name={name}

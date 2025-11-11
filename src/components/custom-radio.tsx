@@ -1,9 +1,9 @@
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material'
 import { Controller } from 'react-hook-form'
-import type { FormData } from '../types/types'
+import type { FormDataType } from '../validation/form-schema'
 
 type Props = {
-	name: keyof FormData
+	name: keyof FormDataType
 	label: string
 	items: string[]
 	control: any
@@ -20,8 +20,8 @@ export const CustomRadio = ({ name, label, items, control, errors, required }: P
 				control={control}
 				render={({ field }) => (
 					<RadioGroup {...field}>
-						{items.map((item) => (
-							<FormControlLabel key={item} value={item} control={<Radio />} label={item} />
+						{items.map((item, id) => (
+							<FormControlLabel key={id} value={item} control={<Radio />} label={item} />
 						))}
 					</RadioGroup>
 				)}

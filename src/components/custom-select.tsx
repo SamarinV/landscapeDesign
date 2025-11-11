@@ -1,40 +1,51 @@
-import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from "@mui/material";
-import { Controller } from "react-hook-form";
-import type { FormData } from '../types/types'
+import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from '@mui/material'
+import { Controller } from 'react-hook-form'
+import type { FormDataType } from '../validation/form-schema'
 
-type Item = {
-	name: keyof FormData
-	value: string
-}
 type Props = {
+	name: keyof FormDataType
 	label: string
-	items: Item[]
+	items: string[]
 	control: any
 }
 
-export const CustomSelect = ({ label, items, control }: Props) => {
+export const CustomSelect = ({ name, label, items, control }: Props) => {
 	return (
 		<FormControl component="fieldset" margin="normal">
 			<FormLabel sx={{ textAlign: 'left' }} component="legend">
 				{label}
 			</FormLabel>
-			<FormGroup>
-				{items.map((el)=> {
-					return (
-						<Controller
-							name={el.name}
-							control={control}
-							render={({ field }) => (
-								<FormControlLabel
-									control={<Checkbox checked={!!field.value} onChange={(e) => field.onChange(e.target.checked)} />}
-									label={el.value}
-								/>
-							)}
-						/>
-					)
-				})}
+			<Controller
+				name={name}
+				control={control}
+				render={({ field }) => {
+					const handleChange = (value: string) => {
+						const exists = field.value?.some((item: string) => item === value)
+						if (exists) {
+							field.onChange(field.value.filter((item: string) => item !== value))
+						} else {
+							field.onChange([...(field.value || []), value])
+						}
+					}
 
-			</FormGroup>
+					return (
+						<FormGroup>
+							{items.map((el, id) => (
+								<FormControlLabel
+									key={id}
+									control={
+										<Checkbox
+											checked={!!field.value?.some((item: string) => item === el)}
+											onChange={() => handleChange(el)}
+										/>
+									}
+									label={el}
+								/>
+							))}
+						</FormGroup>
+					)
+				}}
+			/>
 		</FormControl>
 	)
 }

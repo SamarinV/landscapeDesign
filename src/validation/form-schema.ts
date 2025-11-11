@@ -1,9 +1,15 @@
+import { matchIsValidTel } from 'mui-tel-input'
 import { z } from 'zod'
 
 export const formSchema = z.object({
-	name: z.string().min(1, "Введите ФИО"),
+	name: z.string().min(3, 'Введите ФИО'),
 	email: z.string().optional(),
-	phone: z.string(),
+	phone: z
+		.string()
+		.min(1, 'Введите телефон')
+		.refine((v) => matchIsValidTel(v ?? ''), {
+			message: 'Некорректный телефон',
+		}),
 	serviceType: z.string().optional(),
 	address: z.string().optional(),
 	familyComposition: z.string().optional(),

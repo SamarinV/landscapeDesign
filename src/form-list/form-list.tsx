@@ -96,8 +96,8 @@ const FormList = () => {
 							<MuiTelInputCustom
 								{...field}
 								inputRef={(el) => {
-									field.ref(el) // проброс RHF
-									phoneRef.current = el // локальный ref для фокуса
+									field.ref(el)
+									phoneRef.current = el
 								}}
 								required
 								value={field.value ?? ''}

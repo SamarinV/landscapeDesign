@@ -25,12 +25,11 @@ import {
 	dataWhoTakesCareGarden,
 	defaultFormValues,
 } from '../data/form-options'
-import { CustomModal } from '../modal/modal'
 import s from './form-list.module.scss'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { formSchema, type FormDataType } from '../validation/form-schema'
 import { toast } from 'react-toastify'
+import { formSchema, type FormDataType } from '../validation/form-schema'
 
 const MuiTelInputCustom = styled(MuiTelInput)`
 	& input {
@@ -231,7 +230,6 @@ const FormList = () => {
 					</h6>
 				</form>
 			</Box>
-			{/* <CustomModal isOpen={isOpenModal} setIsOpen={setIsOpenModal} /> */}
 		</div>
 	)
 }

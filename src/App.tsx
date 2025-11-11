@@ -1,7 +1,7 @@
 import Footer from './footer/footer'
 import Header from './header/header'
 import Main from './main/main'
-import { ToastContainer, toast } from 'react-toastify'
+import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 function App() {

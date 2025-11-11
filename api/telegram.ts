@@ -77,4 +77,3 @@ export const sendMessage = async (form: FormDataType): Promise<void> => {
 		}
 	}
 }
-

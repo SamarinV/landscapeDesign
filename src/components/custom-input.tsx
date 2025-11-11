@@ -18,13 +18,23 @@ export const CustomInput = ({ name, label, control, errors, required }: Props) =
 			render={({ field }) => (
 				<TextField
 					{...field}
+					inputRef={(el) => {
+						field.ref(el)
+					}}
 					fullWidth
 					label={label}
+					autoComplete="off"
 					variant="standard"
 					error={!!errors}
 					helperText={errors?.message}
 					margin="normal"
 					{...(required ? { required: true } : {})}
+					sx={{
+						'& input:-webkit-autofill': {
+							WebkitBoxShadow: '0 0 0 1000px transparent inset',
+							WebkitTextFillColor: 'black',
+						},
+					}}
 				/>
 			)}
 		/>

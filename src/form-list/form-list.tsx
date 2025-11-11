@@ -1,7 +1,7 @@
 import { Box, Button, styled } from '@mui/material'
 import { MuiTelInput } from 'mui-tel-input'
-import { useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import { useRef, useState } from 'react'
+import { Controller, useForm, type FieldErrors } from 'react-hook-form'
 import { sendMessage } from '../../api/telegram'
 import { CustomInput } from '../components/custom-input'
 import { CustomRadio } from '../components/custom-radio'
@@ -40,11 +40,13 @@ const MuiTelInputCustom = styled(MuiTelInput)`
 const FormList = () => {
 	const [isLoading, setIsLoading] = useState(false)
 	const [isOpenModal, setIsOpenModal] = useState(false)
+	const phoneRef = useRef<HTMLInputElement | null>(null)
 	const {
 		control,
 		handleSubmit,
 		formState: { errors, isSubmitting },
 		reset,
+		setFocus,
 	} = useForm<FormDataType>({
 		defaultValues: defaultFormValues,
 		resolver: zodResolver(formSchema),
@@ -63,6 +65,15 @@ const FormList = () => {
 		}
 	}
 
+	const onError = (errors: FieldErrors<FormDataType>) => {
+		const firstField = Object.keys(errors)[0] as keyof FormDataType
+		  if (firstField === 'phone' && phoneRef.current) {
+				phoneRef.current.focus()
+			} else {
+				setFocus(firstField)
+			}
+	}
+
 	return (
 		<div className={s.wrapper}>
 			<Box
@@ -75,7 +86,7 @@ const FormList = () => {
 				<div className={s.topBlock}>
 					<h3 className={s.title}>Оставте заявку и мы с вами свяжемся</h3>
 				</div>
-				<form className={s.form} onSubmit={handleSubmit(onSubmit)}>
+				<form className={s.form} onSubmit={handleSubmit(onSubmit, onError)} noValidate>
 					<CustomInput name="name" label="ФИО" control={control} errors={errors.name} required />
 					<CustomInput name="email" label="E-mail" control={control} />
 					<Controller
@@ -84,6 +95,10 @@ const FormList = () => {
 						render={({ field }) => (
 							<MuiTelInputCustom
 								{...field}
+								inputRef={(el) => {
+									field.ref(el) // проброс RHF
+									phoneRef.current = el // локальный ref для фокуса
+								}}
 								required
 								value={field.value ?? ''}
 								label="Номер телефона"

@@ -53,7 +53,7 @@ export const dataAdditionally: string[] = ['система освещения', 
 export const dataWhoTakesCareGarden: string[] = ['самостоятельно', 'садовник']
 
 export const defaultFormValues: FormDataType = {
-	name: 'Vladimir',
+	name: '',
 	email: '',
 	phone: '',
 	address: '',

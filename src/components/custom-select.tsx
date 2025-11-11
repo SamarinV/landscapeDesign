@@ -40,6 +40,11 @@ export const CustomSelect = ({ name, label, items, control }: Props) => {
 										/>
 									}
 									label={el}
+									sx={{
+										'& .MuiFormControlLabel-label': {
+											textAlign: 'left',
+										},
+									}}
 								/>
 							))}
 						</FormGroup>

@@ -8,12 +8,11 @@ type Props = {
 	items: string[]
 	control: any
 	errors?: any
-	required?: boolean
 }
 
-export const CustomRadio = ({ name, label, items, control, errors, required }: Props) => {
+export const CustomRadio = ({ name, label, items, control, errors }: Props) => {
 	return (
-		<FormControl {...(required ? { required: true } : {})} sx={{ marginTop: '15px' }}>
+		<FormControl sx={{ marginTop: '15px' }}>
 			<FormLabel sx={{ textAlign: 'left' }}>{label}</FormLabel>
 			<Controller
 				name={name}

@@ -1,12 +1,12 @@
 import { Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel } from '@mui/material'
-import { Controller } from 'react-hook-form'
+import { Controller, type Control, type FieldPathByValue } from 'react-hook-form'
 import type { FormDataType } from '../validation/form-schema'
 
 type Props = {
-	name: keyof FormDataType
+	name: FieldPathByValue<FormDataType, string[] | undefined>
 	label: string
 	items: string[]
-	control: any
+	control: Control<FormDataType>
 }
 
 export const CustomSelect = ({ name, label, items, control }: Props) => {
@@ -22,7 +22,7 @@ export const CustomSelect = ({ name, label, items, control }: Props) => {
 					const handleChange = (value: string) => {
 						const exists = field.value?.some((item: string) => item === value)
 						if (exists) {
-							field.onChange(field.value.filter((item: string) => item !== value))
+							field.onChange(field.value?.filter((item: string) => item !== value) ?? [])
 						} else {
 							field.onChange([...(field.value || []), value])
 						}

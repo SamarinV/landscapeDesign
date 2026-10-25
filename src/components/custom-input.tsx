@@ -1,12 +1,12 @@
 import { TextField } from '@mui/material'
-import { Controller } from 'react-hook-form'
+import { Controller, type Control, type FieldError } from 'react-hook-form'
 import type { FormDataType } from '../validation/form-schema'
 
 type Props = {
 	name: keyof FormDataType
 	label: string
-	control: any
-	errors?: any
+	control: Control<FormDataType>
+	errors?: FieldError
 	required?: boolean
 }
 

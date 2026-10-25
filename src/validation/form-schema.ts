@@ -2,8 +2,8 @@ import { matchIsValidTel } from 'mui-tel-input'
 import { z } from 'zod'
 
 export const formSchema = z.object({
-	name: z.string().min(3, 'Введите ФИО'),
-	email: z.string().optional(),
+	name: z.string().trim().min(2, 'Введите имя (минимум 2 символа)'),
+	email: z.union([z.email('Проверьте адрес электронной почты'), z.literal('')]).optional(),
 	phone: z
 		.string()
 		.min(1, 'Введите телефон')

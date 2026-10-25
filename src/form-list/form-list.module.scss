@@ -1,24 +1,11 @@
-@use '../index.scss' as *;
-
-.wrapper {
-	background: $block-color-light;
-	border-radius: 20px;
-	margin-top: 6rem;
-}
-.form {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	gap: 10px;
-	max-width: 960px;
-}
-
-.topBlock {
-	max-width: 560px;
-	.title {
-		margin-top: 1.5rem;
-		font-weight: 500;
-		font-size: 1.25rem;
-		max-width: 560px;
-	}
-}
+.wrapper { background: #edf0e4; border: 1px solid #dfe4d3; border-radius: 4px; padding: 65px; display: grid; grid-template-columns: 1fr 1fr; gap: 65px; }
+.eyebrow { font-size: 9px; letter-spacing: 1.6px; color: #6b795e; margin-bottom: 26px; }
+.intro { h2 { font-size: clamp(38px, 4vw, 55px); letter-spacing: -1.5px; margin-bottom: 25px; em { color: #7b8961; } } > p:not(.eyebrow) { font-size: 14px; color: #626f5c; max-width: 310px; } }
+.contactNote { display: block; font-size: 12px; color: #626f5c; max-width: 280px; margin-top: 40px; padding-top: 23px; border-top: 1px solid #cbd3bf; }
+.topBlock { .title { font-size: 26px; margin-bottom: 8px; } > p { font-size: 12px; color: #626f5c; margin-bottom: 10px; } }
+.form { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+.details { margin-top: 16px; border-top: 1px solid #cbd3bf; padding-top: 20px; summary { cursor: pointer; font-size: 13px; } > p { font-size: 12px; margin-top: 12px; color: #626f5c; } }
+.extended { display: flex; flex-direction: column; gap: 12px; padding-top: 12px; }
+.notice { font-size: 10px; color: #626f5c; margin-top: 8px; line-height: 1.7; }
+@media(max-width: 1000px) { .wrapper { padding: 40px; gap: 35px; } }
+@media(max-width: 700px) { .wrapper { grid-template-columns: 1fr; padding: 28px 20px; gap: 30px; } .contactNote { margin-top: 22px; max-width: none; } }

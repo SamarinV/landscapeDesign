@@ -86,20 +86,20 @@ const FormList = () => {
 	}
 
 	return (
-		<div className={s.wrapper}>
+		<section className={s.wrapper} id="contact" aria-labelledby="contact-title"><div className={s.intro}><p className={s.eyebrow}>03 / ВАШ САД НАЧИНАЕТСЯ ЗДЕСЬ</p><h2 id="contact-title">Давайте посадим<br />первую <em>идею.</em></h2><p>Расскажите немного о себе и вашем участке. Обсудим пожелания и подскажем, с чего начать.</p><span className={s.contactNote}>Для первого знакомства нужны только имя и телефон. Остальное — по желанию.</span></div>
 			<Box
 				sx={{
-					maxWidth: 600,
+					width: '100%', minWidth: 0,
 					mx: 'auto',
-					p: 3,
+					p: 0,
 				}}
 			>
 				<div className={s.topBlock}>
-					<h3 className={s.title}>Оставте заявку и мы с вами свяжемся</h3>
+					<h3 className={s.title}>Расскажите о вашем участке</h3><p>Оставьте контакты для обратной связи</p>
 				</div>
 				<form className={s.form} onSubmit={handleSubmit(onSubmit, onError)} noValidate>
-					<CustomInput name="name" label="ФИО" control={control} errors={errors.name} required />
-					<CustomInput name="email" label="E-mail" control={control} />
+					<CustomInput name="name" label="Ваше имя" control={control} errors={errors.name} required />
+					<CustomInput name="email" label="E-mail (необязательно)" control={control} errors={errors.email} />
 					<Controller
 						name="phone"
 						control={control}
@@ -117,8 +117,8 @@ const FormList = () => {
 								variant="standard"
 								defaultCountry="RU"
 								placeholder="000-000-00-00"
-								autoComplete="true"
-								autoCorrect="true"
+								autoComplete="tel"
+								autoCorrect="off"
 								forceCallingCode
 								focusOnSelectCountry
 								preferredCountries={['RU']}
@@ -131,9 +131,9 @@ const FormList = () => {
 					/>
 					<CustomInput name="address" label="Адрес/кадастровый номер объекта" control={control} />
 					<CustomRadio name="serviceType" label="Тип услуги" items={dataServiceType} control={control} />
-					<CustomInput name="familyComposition" label="Состав семьи" control={control} />
+					<details className={s.details}><summary>Заполнить подробную анкету участка</summary><p>Поможет лучше подготовиться к разговору. Все поля необязательны.</p><div className={s.extended}><CustomInput name="familyComposition" label="Состав семьи" control={control} />
 					<CustomInput name="customerAge" label="Возраст заказчика" control={control} />
-					<CustomInput name="children" label="Дети (пол/возвраст)" control={control} />
+					<CustomInput name="children" label="Дети (пол/возраст)" control={control} />
 					<CustomInput name="allergy" label="Есть аллергия на определённые виды растений" control={control} />
 					<CustomRadio name="residenceTime" label="Время проживания" items={dataResidenceTime} control={control} />
 					<CustomInput name="pets" label="Домашние животные" control={control} />
@@ -214,7 +214,7 @@ const FormList = () => {
 					<CustomSelect name="specialWishes" items={dataSpecialWishes} control={control} label="Особые пожелания" />
 					<CustomSelect name="additionally" items={dataAdditionally} control={control} label="Дополнительно" />
 					<CustomInput name="otherWishes" label="Другие пожелания" control={control} />
-					<Button
+					</div></details><Button
 						loading={isLoading}
 						disabled={isSubmitting}
 						type="submit"
@@ -224,13 +224,13 @@ const FormList = () => {
 					>
 						Отправить заявку
 					</Button>
-					<h6>
-						«Нажимая на кнопку, вы даете согласие на обработку персональных данных и соглашаетесь c политикой
-						конфиденциальности»
-					</h6>
+					<p className={s.notice}>
+						Демонстрационная форма. Не указывайте чувствительные данные. Заявка передаётся дизайнеру через Telegram.
+
+					</p>
 				</form>
 			</Box>
-		</div>
+		</section>
 	)
 }
 

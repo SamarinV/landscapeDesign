@@ -1,73 +1,30 @@
-# React + TypeScript + Vite
+# Тихий сад
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Демонстрационный сайт ландшафтного дизайнера на React 19 и TypeScript. Адаптивная вёрстка, SCSS Modules, навигация для мобильных устройств, услуги, этапы работы и FAQ.
 
-Currently, two official plugins are available:
+## Запуск
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```sh
+npm ci
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Проверки
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```sh
+npx tsc -b
+npm run lint
+npm run build
 ```
+
+## Заявка
+
+Форма использует React Hook Form и Zod. Для первого обращения обязательны имя и телефон; подробная анкета участка раскрывается по желанию. Реальная отправка в Telegram сохранена в `api/telegram.ts`. Для неё используется существующее окружение проекта. Без настройки окружения отправка недоступна; имитации успешной заявки нет.
+
+Текущая интеграция обращается к Telegram из браузера, поэтому переменные с префиксом VITE_ доступны посетителям в сборке. Для публичного использования с реальными заявками токен следует хранить на сервере и вызывать Telegram через серверный обработчик. В рамках обновления дизайна способ отправки и секреты не изменялись.
+
+Название «Тихий сад» и тексты используются для демонстрации. Фотографии — существующие материалы проекта; перед коммерческой публикацией необходимо подтвердить права на них. На сайте нет вымышленных отзывов, реализованных проектов или статистики клиентов.
+
+## Статистика языков GitHub
+
+Ранее отслеживался `stats.html` — автоматически созданный отчёт rollup-plugin-visualizer размером около 690 КБ. Он превышал объём TypeScript и искажал долю HTML. Отчёт исключён из индекса Git, но сохранён локально и уже указан в `.gitignore`. Статистика обновится после коммита и отправки изменений в основную ветку.

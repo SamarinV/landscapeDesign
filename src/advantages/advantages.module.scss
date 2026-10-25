@@ -1,17 +1,10 @@
-.footer {
-	display: grid;
-	border-radius: 20px;
-}
-
-.image {
-	object-fit: cover;
-	display: block;
-	width: 100%;
-	height: 100%;
-	border-radius: 5px;
-}
-
-.list {
-	margin-left: 0;
-	list-style-position: inside;
-}
+.eyebrow { font-size: 10px; letter-spacing: 2px; color: #6b795e; margin-bottom: 25px; }
+.about { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; padding: 100px 0 30px; align-items: center; }
+.aboutText { h2 { font-size: clamp(35px, 3.6vw, 50px); letter-spacing: -1.4px; margin-bottom: 28px; em { color: #7b8961; } } > p:not(.eyebrow) { font-size: 14px; max-width: 430px; color: #6b7268; margin-bottom: 18px; } a { display: inline-flex; gap: 38px; margin-top: 14px; font-size: 12px; padding-bottom: 9px; border-bottom: 1px solid #9ba68d; } }
+.collage { position: relative; padding: 0 65px 75px 0; > img:first-child { display: block; width: 100%; height: 400px; object-fit: cover; border-radius: 130px 3px 3px 3px; } > img:nth-child(2) { position: absolute; width: 43%; height: 225px; bottom: 38px; right: 0; object-fit: cover; border: 9px solid #f7f7f0; } > span { position: absolute; left: 15px; bottom: 0; font-family: Georgia, serif; font-style: italic; font-size: 18px; color: #778463; } }
+.process { border-top: 1px solid #d8ddcf; padding: 85px 0; display: grid; grid-template-columns: 1fr 1.15fr; gap: 95px; }
+.processIntro { h2 { font-size: clamp(38px, 4vw, 56px); letter-spacing: -1.5px; } img { display: block; width: 80%; height: 200px; object-fit: cover; margin-top: 32px; border-radius: 3px; } }
+.steps { list-style: none; li { display: flex; gap: 25px; padding: 25px 0; border-bottom: 1px solid #d8ddcf; &:first-child { padding-top: 0; } > span { font: italic 22px Georgia, serif; color: #8a9678; } h3 { font-size: 25px; margin-bottom: 12px; } p { color: #6b7268; font-size: 13px; } } }
+.faq { padding: 25px 0 95px; max-width: 850px; margin: auto; h2 { font-size: clamp(32px, 3.5vw, 45px); margin-bottom: 35px; } details { border-bottom: 1px solid #d8ddcf; padding: 22px 0; p { font-size: 14px; color: #6b7268; max-width: 710px; margin-top: 15px; } } summary { cursor: pointer; font-size: 16px; padding-right: 15px; } }
+@media(max-width: 900px) { .about { gap: 35px; } .process { gap: 40px; } }
+@media(max-width: 650px) { .about { grid-template-columns: 1fr; padding-top: 65px; gap: 35px; } .collage { max-width: 500px; > img:first-child { height: 340px; } } .process { grid-template-columns: 1fr; padding: 55px 0; gap: 32px; } .processIntro img { display: none; } .processIntro h2 br { display: none; } .steps li h3 { font-size: 23px; } .faq { padding-bottom: 60px; } }

@@ -86,7 +86,7 @@ const FormList = () => {
 	}
 
 	return (
-		<section className={s.wrapper} id="contact" aria-labelledby="contact-title"><div className={s.intro}><p className={s.eyebrow}>03 / ВАШ САД НАЧИНАЕТСЯ ЗДЕСЬ</p><h2 id="contact-title">Давайте посадим<br />первую <em>идею.</em></h2><p>Расскажите немного о себе и вашем участке. Обсудим пожелания и подскажем, с чего начать.</p><span className={s.contactNote}>Для первого знакомства нужны только имя и телефон. Остальное — по желанию.</span></div>
+		<section className={s.wrapper} id="contact" aria-labelledby="contact-title"><div className={s.intro}><p className={s.eyebrow}>ОБСУДИМ ВАШ УЧАСТОК</p><h2 id="contact-title">У вашего сада<br />есть <em>будущее.</em></h2><p>Расскажите немного о себе и вашем участке. Обсудим пожелания и подскажем, с чего начать.</p><span className={s.contactNote}>Для первого знакомства нужны только имя и телефон. Остальное — по желанию.</span></div>
 			<Box
 				sx={{
 					width: '100%', minWidth: 0,

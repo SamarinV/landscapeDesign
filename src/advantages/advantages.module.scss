@@ -1,10 +1,90 @@
-.eyebrow { font-size: 10px; letter-spacing: 2px; color: #6b795e; margin-bottom: 25px; }
-.about { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; padding: 100px 0 30px; align-items: center; }
-.aboutText { h2 { font-size: clamp(35px, 3.6vw, 50px); letter-spacing: -1.4px; margin-bottom: 28px; em { color: #7b8961; } } > p:not(.eyebrow) { font-size: 14px; max-width: 430px; color: #6b7268; margin-bottom: 18px; } a { display: inline-flex; gap: 38px; margin-top: 14px; font-size: 12px; padding-bottom: 9px; border-bottom: 1px solid #9ba68d; } }
-.collage { position: relative; padding: 0 65px 75px 0; > img:first-child { display: block; width: 100%; height: 400px; object-fit: cover; border-radius: 130px 3px 3px 3px; } > img:nth-child(2) { position: absolute; width: 43%; height: 225px; bottom: 38px; right: 0; object-fit: cover; border: 9px solid #f7f7f0; } > span { position: absolute; left: 15px; bottom: 0; font-family: Georgia, serif; font-style: italic; font-size: 18px; color: #778463; } }
-.process { border-top: 1px solid #d8ddcf; padding: 85px 0; display: grid; grid-template-columns: 1fr 1.15fr; gap: 95px; }
-.processIntro { h2 { font-size: clamp(38px, 4vw, 56px); letter-spacing: -1.5px; } img { display: block; width: 80%; height: 200px; object-fit: cover; margin-top: 32px; border-radius: 3px; } }
-.steps { list-style: none; li { display: flex; gap: 25px; padding: 25px 0; border-bottom: 1px solid #d8ddcf; &:first-child { padding-top: 0; } > span { font: italic 22px Georgia, serif; color: #8a9678; } h3 { font-size: 25px; margin-bottom: 12px; } p { color: #6b7268; font-size: 13px; } } }
-.faq { padding: 25px 0 95px; max-width: 850px; margin: auto; h2 { font-size: clamp(32px, 3.5vw, 45px); margin-bottom: 35px; } details { border-bottom: 1px solid #d8ddcf; padding: 22px 0; p { font-size: 14px; color: #6b7268; max-width: 710px; margin-top: 15px; } } summary { cursor: pointer; font-size: 16px; padding-right: 15px; } }
-@media(max-width: 900px) { .about { gap: 35px; } .process { gap: 40px; } }
-@media(max-width: 650px) { .about { grid-template-columns: 1fr; padding-top: 65px; gap: 35px; } .collage { max-width: 500px; > img:first-child { height: 340px; } } .process { grid-template-columns: 1fr; padding: 55px 0; gap: 32px; } .processIntro img { display: none; } .processIntro h2 br { display: none; } .steps li h3 { font-size: 23px; } .faq { padding-bottom: 60px; } }
+.eyebrow { font-size: 10px; letter-spacing: 1.3px; color: var(--muted); margin-bottom: 26px; }
+.about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 12%; padding: 90px 0 120px; border-top: 1px solid var(--line); align-items: center; }
+.aboutText { h2 { font-size: clamp(34px, 3.6vw, 54px); letter-spacing: -2.5px; margin-bottom: 30px; em { font-style: normal; color: var(--muted); } } > p:not(.eyebrow) { font-size: 13px; max-width: 370px; color: var(--muted); margin-bottom: 18px; } a { display: inline-flex; gap: 38px; margin-top: 14px; font-size: 11px; padding-bottom: 6px; border-bottom: 1px solid; } }
+.collage { position: relative; padding: 0 0 100px 45px; > img:first-child { display: block; width: 100%; height: 440px; object-fit: cover; } > img:nth-child(2) { position: absolute; width: 45%; height: 215px; bottom: 0; left: -20px; object-fit: cover; border: 8px solid var(--paper); } > span { position: absolute; right: 0; bottom: 20px; font-size: 10px; line-height: 1.8; text-align: right; color: var(--muted); } }
+.process { border-top: 1px solid var(--line); padding: 90px 0 110px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 10%; }
+.processIntro { h2 { font-size: clamp(38px, 4vw, 58px); letter-spacing: -2.6px; } }
+.steps { list-style: none; li { padding: 25px 0 30px; border-bottom: 1px solid var(--line); &:first-child { padding-top: 0; } h3 { font-size: 25px; letter-spacing: -.8px; margin-bottom: 15px; } p { color: var(--muted); font-size: 13px; max-width: 440px; } } }
+.faq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); column-gap: 12%; padding: 60px 0 100px; border-top: 1px solid var(--line); h2 { font-size: clamp(30px, 3vw, 43px); letter-spacing: -1.8px; } }
+@media(max-width: 900px) { .about { gap: 6%; } .collage { padding-left: 15px; > img:first-child { height: 360px; } > img:nth-child(2) { height: 175px; left: 0; } } .process { gap: 6%; } .faq { column-gap: 6%; } }
+@media(max-width: 650px) { .about { grid-template-columns: 1fr; padding: 60px 0; gap: 38px; } .aboutText h2 { letter-spacing: -1.6px; } .collage { max-width: 500px; padding-bottom: 85px; > img:first-child { height: 340px; } > span { font-size: 9px; } } .process { grid-template-columns: 1fr; padding: 60px 0; gap: 35px; } .processIntro { h2 { font-size: 39px; letter-spacing: -1.7px; } img { display: none; } } .steps li h3 { font-size: 23px; } .faq { display: block; padding: 55px 0 65px; h2 { margin-bottom: 20px; } } }
+@media (min-width: 651px) and (max-width: 900px) {
+ .about, .process { padding-block: 65px; }
+ .collage { padding-bottom: 125px; > span { max-width: 50%; bottom: 5px; } }
+ .aboutText h2 { font-size: 32px; letter-spacing: -1.5px; }
+ .processIntro h2 { font-size: 34px; letter-spacing: -1.5px; }
+ .steps li h3 { font-size: 22px; }
+}
+
+@media (max-width: 760px) {
+ .faq { display: block; h2 { max-width: 420px; margin-bottom: 25px; } }
+}
+
+@media (max-width: 400px) {
+ .collage { padding-left: 0; padding-bottom: 115px; > img:first-child { height: 290px; } > img:nth-child(2) { width: 48%; height: 150px; } > span { max-width: 48%; bottom: 10px; } }
+ .aboutText h2 { font-size: 31px; }
+ .processIntro h2 { font-size: 34px; }
+}
+.processPhoto {
+ margin-top: 40px;
+ width: 80%;
+ img { display: block; width: 100%; height: 240px; object-fit: cover; }
+ figcaption { margin-top: 12px; font-size: 10px; color: var(--muted); }
+}
+
+.stepPhoto { display: none; }
+
+.faqPhoto {
+ margin-top: 30px;
+ img { display: block; width: 100%; height: 190px; object-fit: cover; }
+ figcaption { margin-top: 12px; font-size: 10px; color: var(--muted); }
+}
+
+.questions {
+ min-width: 0;
+ details { border-bottom: 1px solid var(--line); padding: 23px 0; &:first-child { border-top: 1px solid var(--line); } }
+ summary {
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  cursor: pointer; font-size: 15px; list-style: none;
+  &::-webkit-details-marker { display: none; }
+ }
+ details > p { margin-top: 16px; max-width: 600px; font-size: 13px; color: var(--muted); }
+}
+
+.faqToggle {
+ position: relative; width: 28px; height: 28px; flex-shrink: 0; border: 1px solid var(--line); border-radius: 50%;
+ &::before, &::after { content: ''; position: absolute; background: currentColor; top: 12px; left: 8px; width: 10px; height: 1px; }
+ &::after { transform: rotate(90deg); transition: transform .2s; }
+}
+.questions details[open] .faqToggle::after { transform: rotate(0); }
+.questionLink { display: inline-flex; gap: 30px; margin-top: 28px; padding-bottom: 6px; border-bottom: 1px solid; font-size: 12px; }
+
+@media (max-width: 760px) {
+ .faqPhoto { max-width: 500px; margin: 28px 0 32px; img { height: auto; aspect-ratio: 1.8; } }
+}
+
+@media (max-width: 650px) {
+ .process { gap: 32px; }
+ .processPhoto {
+  width: 88%; margin: 28px 0 0 auto;
+  img { display: block; height: auto; aspect-ratio: 1.2; }
+  figcaption { text-align: right; }
+ }
+ .steps {
+  li { padding: 27px 0 30px 20px; position: relative; border-left: 1px solid var(--line); border-bottom: 0; }
+  li::before { content: ''; position: absolute; width: 7px; height: 7px; border: 1px solid var(--accent); background: var(--paper); border-radius: 50%; top: 33px; left: -4px; }
+  li:first-child::before { top: 5px; }
+  li:last-child { padding-bottom: 0; }
+  li h3 { font-size: 24px; max-width: 300px; }
+ }
+ .stepPhoto {
+  display: block; margin: 24px 0 0;
+  img { display: block; width: 100%; height: auto; aspect-ratio: 1.5; object-fit: cover; }
+  figcaption { margin-top: 10px; font-size: 10px; color: var(--muted); }
+ }
+ .steps li:nth-child(2) .stepPhoto { width: 83%; margin-left: auto; }
+ .faq { padding-top: 40px; }
+ .faqPhoto { position: relative; margin-bottom: 35px; img { aspect-ratio: 1.25; } figcaption { margin: 0; position: absolute; bottom: 0; left: 0; right: 0; padding: 42px 18px 18px; color: white; background: linear-gradient(transparent, #172218c9); font-size: 12px; } }
+ .questions summary { font-size: 16px; line-height: 1.5; }
+ .questions details { padding-block: 20px; }
+}

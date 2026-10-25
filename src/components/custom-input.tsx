@@ -30,6 +30,15 @@ export const CustomInput = ({ name, label, control, errors, required }: Props) =
 					margin="normal"
 					{...(required ? { required: true } : {})}
 					sx={{
+						'& .MuiInputLabel-root': {
+							position: 'static',
+							transform: 'none',
+							whiteSpace: 'normal',
+							maxWidth: '100%',
+							fontSize: '14px',
+							lineHeight: 1.5,
+						},
+						'& .MuiInputBase-root': { marginTop: '4px' },
 						'& input:-webkit-autofill': {
 							WebkitBoxShadow: '0 0 0 1000px transparent inset',
 							WebkitTextFillColor: 'black',

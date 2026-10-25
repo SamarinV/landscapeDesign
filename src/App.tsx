@@ -6,9 +6,9 @@ import 'react-toastify/dist/ReactToastify.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 const theme = createTheme({
-	palette: { primary: { main: '#354e37' }, text: { primary: '#273c2e', secondary: '#626f5c' } },
+	palette: { primary: { main: '#252723' }, text: { primary: '#252723', secondary: '#686e64' } },
 	typography: { fontFamily: 'Arial, sans-serif', button: { textTransform: 'none' } },
-	shape: { borderRadius: 3 },
+	shape: { borderRadius: 0 },
 })
 
 function App() {
